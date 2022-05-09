@@ -9,7 +9,7 @@ using NewProject1.Data;
 using NewProject1.Models;
 
 namespace NewProject1.Controllers
-{
+{//hi
     public class RatesController : Controller
     {
         private readonly NewProject1Context _context;

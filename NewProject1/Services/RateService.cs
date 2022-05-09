@@ -18,6 +18,7 @@ namespace NewProject1.Services
 			int id = rates.Max(x => x.Id) + 1;
 			Rate rate = new Rate(id, Name, Score, Comment);
 			rates.Add(rate);
+
 		}
 		public void Edit(int id, string Name, int Score, string Comment) {
 			Rate rate = Get(id);
