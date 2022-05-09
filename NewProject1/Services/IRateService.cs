@@ -7,9 +7,9 @@ namespace NewProject1.Services
         public List<Rate> GetAll();
         public Rate Get(int id);
 
-        public void Create(string Name, int Score, string Comment, string Time);
+        public void Create(string Name, int Score, string Comment);
 
-        public void Edit(int id, string Name, int Score, string Comment, string Time);
+        public void Edit(int id, string Name, int Score, string Comment);
         public void Delete(int id);
 
 
