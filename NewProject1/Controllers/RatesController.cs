@@ -1,39 +1,153 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using NewProject1.Data;
 using NewProject1.Models;
 
 namespace NewProject1.Controllers
 {
     public class RatesController : Controller
     {
-        private static List<Rate> rates = new List<Rate>();
+        private readonly NewProject1Context _context;
 
-        public RatesController()
+        public RatesController(NewProject1Context context)
         {
-            rates = new List<Rate>();
-            rates.Add(new Rate() { Id = 1, Score = 2, Name = "yosi", Comment = "Nice", Time = "10:20" });
-            rates.Add(new Rate() { Id = 2, Score = 2, Name = "yosi", Comment = "Nice", Time = "10:20" });
-            rates.Add(new Rate() { Id = 3, Score = 2, Name = "yosi", Comment = "Nice", Time = "10:20" });
-            rates.Add(new Rate() { Id = 4, Score = 2, Name = "yosi", Comment = "Nice", Time = "10:20" });
+            _context = context;
         }
 
-        public IActionResult Index()
+        // GET: Rates
+        public async Task<IActionResult> Index()
         {
-            return View(rates);
+            return View(await _context.Rate.ToListAsync());
         }
 
-        public IActionResult List()
+        // GET: Rates/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
-            return View(rates);
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        }
+            var rate = await _context.Rate
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (rate == null)
+            {
+                return NotFound();
+            }
 
-        public IActionResult Detailes(int id)
-        {
-            Rate rate = rates.Find(x => x.Id == id); 
             return View(rate);
         }
 
+        // GET: Rates/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
 
+        // POST: Rates/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Id,Name,Score,Comment,Time")] Rate rate)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(rate);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(rate);
+        }
 
+        // GET: Rates/Edit/5
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var rate = await _context.Rate.FindAsync(id);
+            if (rate == null)
+            {
+                return NotFound();
+            }
+            return View(rate);
+        }
+
+        // POST: Rates/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Score,Comment,Time")] Rate rate)
+        {
+            if (id != rate.Id)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(rate);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!RateExists(rate.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(rate);
+        }
+
+        // GET: Rates/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var rate = await _context.Rate
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (rate == null)
+            {
+                return NotFound();
+            }
+
+            return View(rate);
+        }
+
+        // POST: Rates/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var rate = await _context.Rate.FindAsync(id);
+            _context.Rate.Remove(rate);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
+        private bool RateExists(int id)
+        {
+            return _context.Rate.Any(e => e.Id == id);
+        }
     }
 }
