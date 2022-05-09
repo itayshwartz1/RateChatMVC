@@ -14,13 +14,13 @@ namespace NewProject1.Services
 					
 		}
 
-		public void Create(string Name, int Score, string Comment) { 
+		public void Create(string Name, int Score, string Comment, string time) { 
 			int id = rates.Max(x => x.Id) + 1;
-			Rate rate = new Rate(id, Name, Score, Comment);
+			Rate rate = new Rate(id, Name, Score, Comment, time);
 			rates.Add(rate);
 
 		}
-		public void Edit(int id, string Name, int Score, string Comment) {
+		public void Edit(int id, string Name, int Score, string Comment, string time) {
 			Rate rate = Get(id);
 			rate.Id = id;
 			rate.Name = Name;

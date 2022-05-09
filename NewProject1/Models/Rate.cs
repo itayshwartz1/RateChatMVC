@@ -8,13 +8,13 @@ namespace NewProject1.Models
         {
 
         }
-		public Rate(int id, string name, int score, string comment)
+		public Rate(int id, string name, int score, string comment, string time)
 		{
 			this.Id = id;
             this.Name = name;
             this.Score = score;
             this.Comment = comment;
-            this.Time = DateTime.Now;
+            this.Time = time;
 		}
 
 		[Required]
@@ -30,7 +30,7 @@ namespace NewProject1.Models
         public string Comment { get; set; }
 
         [Required]
-        public DateTime Time { get; set; }
+        public string Time { get; set; }
 
 
     }
