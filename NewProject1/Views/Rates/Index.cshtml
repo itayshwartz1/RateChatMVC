@@ -26,7 +26,7 @@
 <h1>The Avrage Rating Is: @getAvg() </h1>
 
 <form asp-action="Index">
-	<input name="query" />
+	<input name="query" id = "search"/>
 	<input type="submit" value="Search" />
 </form>
 
@@ -76,3 +76,29 @@
 		}
 	</tbody>
 </table>
+
+@section Scripts{
+<script src="~/js/Search.js"></script>
+<script type="text/html" , id="tamplate">
+	<tr>
+		<td>
+			{name}
+		</td>
+		<td>
+			{score}
+		</td>
+		<td>
+			{comment}
+		</td>
+		<td>
+			{time}
+		</td>
+		<td>
+			<a asp-action="Edit" asp-route-id="{id}">Edit</a> 
+			<a asp-action="Details" asp-route-id="{id}">Details</a> 
+			<a asp-action="Delete" asp-route-id="{id}">Delete</a>
+		</td>
+	</tr>
+</script>
+}
+
