@@ -25,6 +25,16 @@ namespace NewProject1.Controllers
             return View(await _context.Rate.ToListAsync());
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Index(string query)
+        {
+            var q = from Rate in _context.Rate
+                    where Rate.Name.Contains(query) || 
+                    Rate.Comment.Contains(query)
+                    select Rate;
+            return View(await q.ToListAsync());
+        }
+
         // GET: Rates/Details/5
         public async Task<IActionResult> Details(int? id)
         {
