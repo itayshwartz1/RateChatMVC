@@ -29,7 +29,7 @@ namespace NewProject1.Models
 
         public string Comment { get; set; }
 
-        [Required]
+        
         public string Time { get; set; }
 
 

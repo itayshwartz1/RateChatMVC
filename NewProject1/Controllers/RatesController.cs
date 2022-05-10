@@ -59,6 +59,7 @@ namespace NewProject1.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(rate);
+                rate.Time = DateTime.Now.ToString("MM/dd/yyyy H:mm");
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
