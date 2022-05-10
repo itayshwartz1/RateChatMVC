@@ -37,10 +37,16 @@ namespace NewProject1.Controllers
 
         public async Task<IActionResult> Search(string query)
         {
+            if (query == null)
+            {
+                return Json(await _context.Rate.ToListAsync());
+
+            }
             var q = from Rate in _context.Rate
                     where Rate.Name.Contains(query) ||
                     Rate.Comment.Contains(query)
                     select Rate;
+            
             return Json(await q.ToListAsync());
         }
 

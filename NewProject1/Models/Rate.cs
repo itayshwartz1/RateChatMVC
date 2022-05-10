@@ -21,12 +21,14 @@ namespace NewProject1.Models
         public int Id { get; set; } 
 
         [Required]
+        [MaxLength(20)]
         public string Name { get; set; }
 
         [Required]
         [Range(1,5)]
         public int Score { get; set; }
 
+        [MaxLength(45)]
         public string Comment { get; set; }
 
         
