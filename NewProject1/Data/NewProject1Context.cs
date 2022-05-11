@@ -15,5 +15,11 @@ namespace NewProject1.Data
         }
 
         public DbSet<NewProject1.Models.Rate> Rate { get; set; }
+
+        public DbSet<NewProject1.Models.User> User { get; set; }
+
+        public DbSet<NewProject1.Models.Chat> Chat { get; set; }
+
+        public DbSet<NewProject1.Models.Message> Message { get; set; }
     }
 }
