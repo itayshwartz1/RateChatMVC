@@ -8,6 +8,7 @@
 
         var r = await fetch('/Rates/Search?query=' + q);
         var d = await r.json();
+        console.log(d);
 
         const tamplate = $('#tamplate').html();
         let result = '';
